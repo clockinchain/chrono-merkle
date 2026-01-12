@@ -200,7 +200,23 @@ cargo bench
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [contributing guide](CONTRIBUTING.md) for details.
+We welcome contributions from the community! Here's how you can help:
+
+### Ways to Contribute
+- 🐛 **Bug Reports:** Help us improve stability by reporting issues
+- ✨ **Features:** Suggest new features or enhancements
+- 📖 **Documentation:** Improve docs, examples, or tutorials
+- 🧪 **Testing:** Add tests or improve test coverage
+- 🔧 **Code:** Submit fixes, optimizations, or new features
+
+### Getting Started
+1. Read our [Contributing Guide](CONTRIBUTING.md)
+2. Check [Issues](https://github.com/Olyntar-Labs/chrono-merkle/issues) for good first issues
+3. Fork the repository and create a feature branch
+4. Make your changes following our coding standards
+5. Submit a pull request
+
+For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Development Setup
 
