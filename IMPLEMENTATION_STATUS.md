@@ -28,6 +28,7 @@
 ### Documentation
 - [x] README.md with usage examples
 - [x] CHANGELOG.md
+- [x] CONTRIBUTING.md with development guidelines
 - [x] LICENSE file
 - [x] API documentation in code
 
