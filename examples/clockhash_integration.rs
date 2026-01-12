@@ -6,7 +6,7 @@
 //! ClockHash is a time-aware cryptographic accumulator that compresses
 //! execution traces while maintaining time-based verification capabilities.
 
-use chrono_merkle::{ChronoMerkleTree, Blake3Hasher};
+use chrono_merkle::{Blake3Hasher, DefaultChronoMerkleTree};
 #[cfg(feature = "clockhash")]
 use chrono_merkle::ClockHashAdapter;
 
@@ -104,7 +104,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Demonstrate integration with regular ChronoMerkle tree for comparison
     println!("\n🔄 Comparison with regular ChronoMerkle tree:");
 
-    let mut regular_tree = ChronoMerkleTree::new(Blake3Hasher::default());
+    let mut regular_tree = DefaultChronoMerkleTree::new(Blake3Hasher::default());
     for entry in &trace {
         regular_tree.insert(&entry.to_bytes(), entry.timestamp)?;
     }

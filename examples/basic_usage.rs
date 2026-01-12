@@ -6,13 +6,13 @@
 //! - Generating and verifying proofs
 //! - Time-based queries
 
-use chrono_merkle::{ChronoMerkleTree, Blake3Hasher};
+use chrono_merkle::{Blake3Hasher, DefaultChronoMerkleTree};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("🕒 ChronoMerkle Tree - Basic Usage Example\n");
 
     // Create a new ChronoMerkle tree with Blake3 hasher
-    let mut tree = ChronoMerkleTree::new(Blake3Hasher::default());
+    let mut tree = DefaultChronoMerkleTree::new(Blake3Hasher::default());
     println!("✓ Created new ChronoMerkle tree");
 
     // Insert some data with timestamps
@@ -31,7 +31,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Get the current root hash
     if let Some(root) = tree.root() {
-        println!("\n🌳 Current tree root: {:x}", root.iter().fold(0u64, |acc, &b| acc.wrapping_mul(256).wrapping_add(b as u64)));
+        println!("\n🌳 Current tree root: {:x}", root.iter().fold(0u64, |acc: u64, &b| acc.wrapping_mul(256).wrapping_add(b as u64)));
     }
 
     // Generate a proof for the first leaf

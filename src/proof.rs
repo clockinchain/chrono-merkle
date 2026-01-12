@@ -113,7 +113,7 @@ where
                         }
 
                         let delta_hash = &delta_chain[delta_index];
-                        let expected_delta_hash = hasher.hash_pair(&old_hash, &new_hash);
+                        let expected_delta_hash = hasher.hash_pair(old_hash, new_hash);
 
                         if !crate::security::constant_time_eq(delta_hash.as_ref(), expected_delta_hash.as_ref()) {
                             return Err(ChronoMerkleError::ProofVerificationFailed {
@@ -155,7 +155,6 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::hash::Blake3Hasher;
 
     #[cfg(feature = "blake3-hash")]
     #[test]

@@ -46,13 +46,13 @@
 
 ### Core Features
 - Time-aware leaves with timestamps
-- Delta-based incremental updates (path computation optimization)
+- Delta-based incremental updates (working with rebuild mode)
 - Programmable nodes with validation callbacks
 - Sparse timestamp indexing
 - Generic hash function support
 - Proof generation with delta chains
 - Time-based queries (exact and range)
-- Delta verification and rollback capabilities
+- Delta verification and rollback capabilities (✅ WORKING)
 - Delta storage and persistence for full rollback support
 - Tree serialization with delta reconstruction
 

@@ -7,7 +7,7 @@
 //! - Proof generation for transaction inclusion
 //! - Historical state verification
 
-use chrono_merkle::{ChronoMerkleTree, Blake3Hasher};
+use chrono_merkle::{Blake3Hasher, DefaultChronoMerkleTree};
 
 /// Represents a simple transaction
 #[derive(Debug, Clone)]
@@ -29,12 +29,13 @@ impl Transaction {
     }
 
     fn hash_data(&self) -> Vec<u8> {
-        self.data.clone()
+        // Include all transaction details in the hash
+        format!("{}:{}:{}:{:?}", self.sender, self.receiver, self.amount, self.data).into_bytes()
     }
 }
 
 /// Represents a blockchain block
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Block {
     height: u64,
     timestamp: u64,
@@ -46,7 +47,7 @@ struct Block {
 impl Block {
     fn new(height: u64, timestamp: u64, transactions: Vec<Transaction>, previous_hash: Option<[u8; 32]>) -> Self {
         // Create Merkle tree for transactions
-        let mut tree = ChronoMerkleTree::new(Blake3Hasher::default());
+        let mut tree = DefaultChronoMerkleTree::new(Blake3Hasher::default());
 
         // Insert transactions with their individual timestamps
         for (i, tx) in transactions.iter().enumerate() {
@@ -65,10 +66,14 @@ impl Block {
         }
     }
 
-    fn hash(&self) -> [u8; 32] {
-        let mut tree = ChronoMerkleTree::new(Blake3Hasher::default());
+    fn transaction_count(&self) -> usize {
+        self.transactions.len()
+    }
 
-        // Include block header data
+    fn hash(&self) -> [u8; 32] {
+        let mut tree = DefaultChronoMerkleTree::new(Blake3Hasher::default());
+
+        // Include block header data in deterministic order
         tree.insert(&self.height.to_le_bytes(), self.timestamp).unwrap();
         tree.insert(&self.merkle_root, self.timestamp + 1).unwrap();
 
@@ -96,12 +101,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let genesis_block = Block::new(0, 1000000, genesis_transactions, None);
     let genesis_hash = genesis_block.hash();
-    blockchain.push(genesis_block);
+    blockchain.push(genesis_block.clone());
 
     println!("  Block 0 - Genesis");
-    println!("  Transactions: 2");
-    println!("  Merkle Root: {:x}", genesis_hash.iter().fold(0u64, |acc, &b| acc.wrapping_mul(256).wrapping_add(b as u64)));
+    println!("  Transactions: {}", genesis_block.transaction_count());
+    println!("  Merkle Root: {:x}", genesis_block.merkle_root.iter().fold(0u64, |acc, &b| acc.wrapping_mul(256).wrapping_add(b as u64)));
     println!("  Block Hash: {:x}", genesis_hash.iter().fold(0u64, |acc, &b| acc.wrapping_mul(256).wrapping_add(b as u64)));
+
+    previous_hash = Some(genesis_hash);
 
     // Create additional blocks
     let mut current_timestamp = 1000000;
@@ -137,7 +144,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         // Verify transaction inclusion proof
         if !transactions.is_empty() {
             println!("  Verifying transaction inclusion:");
-            let mut tree = ChronoMerkleTree::new(Blake3Hasher::default());
+            let mut tree = DefaultChronoMerkleTree::new(Blake3Hasher::default());
             for (i, tx) in transactions.iter().enumerate() {
                 tree.insert(&tx.hash_data(), current_timestamp + i as u64).unwrap();
             }

@@ -6,9 +6,7 @@
 use crate::error::Result;
 
 #[cfg(feature = "no-std")]
-use alloc::{string::String, vec::Vec};
-#[cfg(not(feature = "no-std"))]
-use std::vec::Vec;
+use alloc::string::String;
 
 /// Security event severity levels
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -68,27 +66,40 @@ pub struct SecurityEvent {
 pub enum SecurityMetadata {
     /// Leaf insertion metadata
     LeafInsertion {
+        /// Index of the inserted leaf in the tree
         leaf_index: usize,
+        /// Timestamp when the leaf was inserted
         timestamp: u64,
-        data_hash: String, // Hex-encoded for logging
+        /// Hex-encoded hash of the inserted data for logging
+        data_hash: String,
     },
     /// Proof verification metadata
     ProofVerification {
+        /// Index of the leaf being verified
         leaf_index: usize,
+        /// Timestamp from the proof being verified
         proof_timestamp: u64,
+        /// Result of the verification (true = valid, false = invalid)
         verification_result: bool,
+        /// Detailed reason for verification failure (if applicable)
         failure_reason: Option<String>,
     },
     /// Configuration change metadata
     ConfigChange {
+        /// Name of the configuration parameter that changed
         parameter: String,
+        /// Previous value of the parameter
         old_value: String,
+        /// New value of the parameter
         new_value: String,
     },
     /// Validation failure metadata
     ValidationFailure {
+        /// Type of input that failed validation
         input_type: String,
+        /// Detailed reason for validation failure
         reason: String,
+        /// The actual input value that failed (if safe to log)
         input_value: Option<String>,
     },
 }

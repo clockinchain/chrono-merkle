@@ -114,6 +114,11 @@ impl SparseIndex {
     pub fn timestamps(&self) -> Vec<u64> {
         self.index.keys().copied().collect()
     }
+
+    /// Iterate over all (timestamp, leaf_index) pairs
+    pub fn iter(&self) -> impl Iterator<Item = (&u64, &usize)> {
+        self.index.iter()
+    }
 }
 
 #[cfg(test)]

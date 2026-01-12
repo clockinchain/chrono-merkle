@@ -16,7 +16,7 @@
 //! ```rust
 //! use chrono_merkle::{ChronoMerkleTree, Blake3Hasher};
 //!
-//! let mut tree = ChronoMerkleTree::new(Blake3Hasher::default());
+//! let mut tree: ChronoMerkleTree = ChronoMerkleTree::new(Blake3Hasher::default());
 //! tree.insert(b"data1", 1000).unwrap();
 //! tree.insert(b"data2", 1001).unwrap();
 //!
@@ -29,15 +29,25 @@
 #[cfg(feature = "no-std")]
 extern crate alloc;
 
+pub mod config;
+pub mod constructors;
+pub mod delta;
 pub mod error;
 pub mod hash;
 pub mod node;
+pub mod operations;
 pub mod proof;
+pub mod proofs;
+pub mod rebuild;
 pub mod security;
 pub mod sparse_index;
 pub mod storage;
 pub mod tree;
 pub mod traits;
+pub mod validation;
+pub mod visualization;
+
+// Re-export tree configuration and types
 
 #[cfg(feature = "serde")]
 pub mod serde_impl;
@@ -61,9 +71,17 @@ pub use security::StdErrLogger;
 pub use sparse_index::SparseIndex;
 #[cfg(all(feature = "storage", feature = "std", not(feature = "no-std")))]
 pub use storage::FileStorage;
-pub use storage::MemoryStorage;
 pub use tree::{ChronoMerkleTree, TreeConfig};
+
+/// Type alias for the most common ChronoMerkleTree configuration.
+///
+/// This uses Blake3 hashing with 32-byte outputs and a no-op security logger.
+/// Suitable for most applications requiring time-aware Merkle trees.
+pub type DefaultChronoMerkleTree = ChronoMerkleTree<[u8; 32], Blake3Hasher, NoOpLogger>;
 
 // Conditionally re-export DefaultHasher based on features
 #[cfg(any(feature = "sha2-hash", not(any(feature = "sha2-hash", feature = "blake3-hash"))))]
 pub use hash::DefaultHasher;
+
+#[cfg(test)]
+mod tests;

@@ -9,7 +9,7 @@
 //! - Data integrity checks
 //! - Custom consensus rules
 
-use chrono_merkle::{ChronoMerkleTree, Blake3Hasher, NodeType};
+use chrono_merkle::{Blake3Hasher, DefaultChronoMerkleTree};
 use std::sync::Arc;
 
 /// Custom validation function type
@@ -97,7 +97,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("🎛️  ChronoMerkle Tree - Programmable Nodes Example\n");
 
     // Create a tree with programmable nodes
-    let mut tree = ChronoMerkleTree::new(Blake3Hasher::default());
+    let mut tree = DefaultChronoMerkleTree::new(Blake3Hasher::default());
     println!("✓ Created ChronoMerkle tree with programmable node support");
 
     // Define some programmable nodes
@@ -179,7 +179,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("  Tree depth: {}", tree.depth());
 
     if let Some(root) = tree.root() {
-        println!("  Root hash: {:x}", root.iter().fold(0u64, |acc, &b| acc.wrapping_mul(256).wrapping_add(b as u64)));
+        println!("  Root hash: {:x}", root.iter().fold(0u64, |acc: u64, &b| acc.wrapping_mul(256).wrapping_add(b as u64)));
     }
 
     // Demonstrate proof generation for validated data

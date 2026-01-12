@@ -1,10 +1,10 @@
 //! Tests for proof generation and verification
 
-use chrono_merkle::{ChronoMerkleTree, Blake3Hasher, ChronoProof, ProofStep};
+use chrono_merkle::{Blake3Hasher, ChronoProof, ProofStep, DefaultChronoMerkleTree};
 
 #[test]
 fn test_proof_structure() {
-    let mut tree = ChronoMerkleTree::new(Blake3Hasher::default());
+    let mut tree = DefaultChronoMerkleTree::new(Blake3Hasher::default());
     tree.insert(b"data1", 1000).unwrap();
     tree.insert(b"data2", 1001).unwrap();
     
@@ -15,7 +15,7 @@ fn test_proof_structure() {
 
 #[test]
 fn test_proof_verification_success() {
-    let mut tree = ChronoMerkleTree::new(Blake3Hasher::default());
+    let mut tree = DefaultChronoMerkleTree::new(Blake3Hasher::default());
     tree.insert(b"data1", 1000).unwrap();
     tree.insert(b"data2", 1001).unwrap();
     tree.insert(b"data3", 1002).unwrap();
@@ -28,16 +28,16 @@ fn test_proof_verification_success() {
 
 #[test]
 fn test_proof_verification_failure() {
-    let mut tree1 = ChronoMerkleTree::new(Blake3Hasher::default());
+    let mut tree1 = DefaultChronoMerkleTree::new(Blake3Hasher::default());
     tree1.insert(b"data1", 1000).unwrap();
     tree1.insert(b"data2", 1001).unwrap();
-    
-    let mut tree2 = ChronoMerkleTree::new(Blake3Hasher::default());
+
+    let mut tree2 = DefaultChronoMerkleTree::new(Blake3Hasher::default());
     tree2.insert(b"different1", 1000).unwrap();
     tree2.insert(b"different2", 1001).unwrap();
     
     // Proof from tree1 should not verify against tree2
-    let proof = tree1.generate_proof(0).unwrap();
+    let _proof = tree1.generate_proof(0).unwrap();
     // This should fail because roots are different
     // Note: This test may need adjustment based on actual verification logic
 }

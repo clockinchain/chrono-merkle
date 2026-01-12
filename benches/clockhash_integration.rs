@@ -1,5 +1,5 @@
-use chrono_merkle::{ChronoMerkleTree, Blake3Hasher};
-use criterion::{black_box, criterion_group, criterion_main, Criterion};
+use chrono_merkle::{ChronoMerkleTree, Blake3Hasher, security::NoOpLogger};
+use criterion::{criterion_group, criterion_main, Criterion};
 
 #[cfg(feature = "clockhash")]
 use chrono_merkle::ClockHashAdapter;
@@ -11,7 +11,7 @@ fn bench_clockhash_adapter(c: &mut Criterion) {
     group.bench_function("create_adapter", |b| {
         b.iter(|| {
             let adapter = ClockHashAdapter::new(1000);
-            black_box(adapter);
+            std::hint::black_box(adapter);
         });
     });
 
@@ -20,7 +20,7 @@ fn bench_clockhash_adapter(c: &mut Criterion) {
             let mut adapter = ClockHashAdapter::new(1000);
             let trace_data = b"operation_data";
             adapter.add_trace_block(trace_data).unwrap();
-            black_box(adapter);
+            std::hint::black_box(adapter);
         });
     });
 
@@ -31,7 +31,7 @@ fn bench_clockhash_adapter(c: &mut Criterion) {
                 let trace_data = format!("operation_{}", i).into_bytes();
                 adapter.add_trace_block(&trace_data).unwrap();
             }
-            black_box(adapter);
+            std::hint::black_box(adapter);
         });
     });
 
@@ -44,7 +44,7 @@ fn bench_clockhash_adapter(c: &mut Criterion) {
 
         b.iter(|| {
             let root = adapter.compute_trace_root().unwrap();
-            black_box(root);
+            std::hint::black_box(root);
         });
     });
 
@@ -57,7 +57,7 @@ fn bench_clockhash_adapter(c: &mut Criterion) {
 
         b.iter(|| {
             let results = adapter.query_by_time_slice(1000);
-            black_box(results);
+            std::hint::black_box(results);
         });
     });
 
@@ -77,7 +77,7 @@ fn bench_trace_compression(c: &mut Criterion) {
             for entry in &trace_entries {
                 adapter.add_trace_block(entry).unwrap();
             }
-            black_box(adapter.compute_trace_root().unwrap());
+            std::hint::black_box(adapter.compute_trace_root().unwrap());
         });
     });
 
@@ -88,18 +88,18 @@ fn bench_trace_compression(c: &mut Criterion) {
             for entry in &large_trace {
                 adapter.add_trace_block(entry).unwrap();
             }
-            black_box(adapter.compute_trace_root().unwrap());
+            std::hint::black_box(adapter.compute_trace_root().unwrap());
         });
     });
 
     // Compare with regular ChronoMerkle tree
     group.bench_function("regular_tree_1000_entries", |b| {
         b.iter(|| {
-            let mut tree = ChronoMerkleTree::new(Blake3Hasher::default());
+            let mut tree: ChronoMerkleTree<[u8; 32], Blake3Hasher, NoOpLogger> = ChronoMerkleTree::new(Blake3Hasher::default());
             for (i, entry) in trace_entries.iter().enumerate() {
                 tree.insert(entry, 1000 + i as u64).unwrap();
             }
-            black_box(tree.root().unwrap());
+            std::hint::black_box(tree.root().unwrap());
         });
     });
 
@@ -118,7 +118,7 @@ fn bench_incremental_trace_building(c: &mut Criterion) {
                 let trace_data = format!("op_{}", i).into_bytes();
                 adapter.add_trace_block(&trace_data).unwrap();
                 // Compute root at each step (simulating incremental verification)
-                black_box(adapter.compute_trace_root().unwrap());
+                std::hint::black_box(adapter.compute_trace_root().unwrap());
             }
         });
     });
@@ -131,7 +131,7 @@ fn bench_incremental_trace_building(c: &mut Criterion) {
                 adapter.add_trace_block(&trace_data).unwrap();
             }
             // Single root computation at the end
-            black_box(adapter.compute_trace_root().unwrap());
+            std::hint::black_box(adapter.compute_trace_root().unwrap());
         });
     });
 
@@ -186,7 +186,7 @@ fn bench_placeholder(c: &mut Criterion) {
     group.bench_function("feature_not_enabled", |b| {
         b.iter(|| {
             // Placeholder benchmark when clockhash feature is not enabled
-            black_box(());
+            std::hint::black_box(());
         });
     });
 

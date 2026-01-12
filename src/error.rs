@@ -10,27 +10,49 @@ use alloc::string::String;
 pub enum ChronoMerkleError {
     /// Leaf index is out of bounds
     #[error("Leaf index {index} is out of bounds (tree has {leaf_count} leaves)")]
-    IndexOutOfBounds { index: usize, leaf_count: usize },
+    IndexOutOfBounds {
+        /// The requested leaf index
+        index: usize,
+        /// Total number of leaves in the tree
+        leaf_count: usize
+    },
 
     /// Invalid proof structure
     #[error("Invalid proof structure: {message}")]
-    InvalidProof { message: String },
+    InvalidProof {
+        /// Detailed error message describing the proof structure issue
+        message: String
+    },
 
     /// Proof verification failed
     #[error("Proof verification failed: {reason}")]
-    ProofVerificationFailed { reason: String },
+    ProofVerificationFailed {
+        /// Detailed reason for proof verification failure
+        reason: String
+    },
 
     /// Time slice mismatch
     #[error("Time slice mismatch: expected {expected}, got {actual}")]
-    TimeSliceMismatch { expected: u64, actual: u64 },
+    TimeSliceMismatch {
+        /// Expected timestamp value
+        expected: u64,
+        /// Actual timestamp value found
+        actual: u64
+    },
 
     /// Invalid timestamp
     #[error("Invalid timestamp: {timestamp}")]
-    InvalidTimestamp { timestamp: u64 },
+    InvalidTimestamp {
+        /// The invalid timestamp value
+        timestamp: u64
+    },
 
     /// Hash computation error
     #[error("Hash computation error: {message}")]
-    HashError { message: String },
+    HashError {
+        /// Detailed error message for hash computation failure
+        message: String
+    },
 
     /// Tree is empty
     #[error("Tree is empty")]
@@ -38,15 +60,24 @@ pub enum ChronoMerkleError {
 
     /// Invalid node type for operation
     #[error("Invalid node type for operation: {operation}")]
-    InvalidNodeType { operation: String },
+    InvalidNodeType {
+        /// Description of the operation that failed due to node type
+        operation: String
+    },
 
     /// Delta proof generation failed
     #[error("Delta proof generation failed: {reason}")]
-    DeltaProofFailed { reason: String },
+    DeltaProofFailed {
+        /// Detailed reason for delta proof generation failure
+        reason: String
+    },
 
     /// Programmable node validation failed
     #[error("Programmable node validation failed: {reason}")]
-    ValidationFailed { reason: String },
+    ValidationFailed {
+        /// Detailed reason for validation failure
+        reason: String
+    },
 
     /// ClockHash integration error
     #[cfg(feature = "clockhash")]
@@ -70,7 +101,12 @@ pub enum ChronoMerkleError {
 
     /// Invalid configuration parameter
     #[error("Invalid configuration: {parameter} - {reason}")]
-    InvalidConfiguration { parameter: String, reason: String },
+    InvalidConfiguration {
+        /// Name of the invalid configuration parameter
+        parameter: String,
+        /// Detailed reason why the parameter is invalid
+        reason: String
+    },
 }
 
 /// Result type alias for ChronoMerkle operations
