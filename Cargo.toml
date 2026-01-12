@@ -1,0 +1,77 @@
+[package]
+name = "chrono-merkle"
+version = "0.1.0"
+edition = "2021"
+authors = ["ClockInChain Contributors"]
+license = "MIT OR Apache-2.0"
+description = "Time-aware Merkle tree with delta-based updates and programmable nodes"
+repository = "https://github.com/clockinchain/chrono-merkle"
+documentation = "https://docs.rs/chrono-merkle"
+keywords = ["merkle", "tree", "blockchain", "timestamp", "proof"]
+categories = ["cryptography", "data-structures", "algorithms"]
+rust-version = "1.70"
+
+[dependencies]
+sha2 = { version = "0.10", optional = true }
+blake3 = { version = "1.8", optional = true }
+serde = { version = "1.0", features = ["derive"], optional = true }
+thiserror = "2.0"
+rayon = { version = "1.11", optional = true }
+serde_json = { version = "1.0.149", optional = true }
+# Compression dependencies
+flate2 = { version = "1.1.8", optional = true }
+# Encryption dependencies
+aes-gcm = { version = "0.10.3", optional = true }
+rand = { version = "0.9.2", optional = true }
+hex = { version = "0.4.3", optional = true }
+# Database dependencies
+tokio-postgres = { version = "0.7.15", optional = true }
+tokio = { version = "1.49.0", features = ["rt", "rt-multi-thread"], optional = true }
+redis = { version = "1.0.2", optional = true }
+bb8 = { version = "0.9.0", optional = true }
+bb8-redis = { version = "0.26.0", optional = true }
+
+[dev-dependencies]
+criterion = "0.8.1"
+proptest = "1.9"
+hex = "0.4.3"
+serde_json = "1.0.149"
+tempfile = "3.24.0"
+
+[features]
+default = ["serde", "std", "blake3-hash"]
+std = []
+serde = ["dep:serde"]
+blake3-hash = ["dep:blake3"]
+sha2-hash = ["dep:sha2"]
+# ClockHash integration (optional, for ClockinChain ecosystem)
+clockhash = []
+# Performance features
+parallel = ["dep:rayon"]
+# Storage backends
+storage = ["dep:serde_json", "serde"]
+file-storage = ["storage", "std"]
+memory-storage = ["storage"]
+# Storage extensions
+compressed-storage = ["storage", "std", "dep:flate2"]
+encrypted-storage = ["storage", "dep:aes-gcm", "dep:rand"]
+# Database backends
+postgres-storage = ["storage", "std", "dep:tokio", "dep:tokio-postgres"]
+redis-storage = ["storage", "std", "dep:bb8", "dep:bb8-redis", "dep:redis"]
+# Distributed storage
+distributed-storage = ["storage", "std"]
+# Future features
+wasm = []
+no-std = []
+# Visualization
+visualization = ["std", "dep:serde_json"]
+# Security features
+security-logging = ["dep:hex"]
+
+[[bench]]
+name = "tree_operations"
+harness = false
+
+[[bench]]
+name = "clockhash_integration"
+harness = false
