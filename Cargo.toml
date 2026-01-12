@@ -2,10 +2,10 @@
 name = "chrono-merkle"
 version = "0.1.0"
 edition = "2021"
-authors = ["ClockInChain Contributors"]
+authors = ["Olyntar Labs <contact@olyntar.com>"]
 license = "MIT OR Apache-2.0"
 description = "Time-aware Merkle tree with delta-based updates and programmable nodes"
-repository = "https://github.com/clockinchain/chrono-merkle"
+repository = "https://github.com/Olyntar-Labs/chrono-merkle"
 documentation = "https://docs.rs/chrono-merkle"
 keywords = ["merkle", "tree", "blockchain", "timestamp", "proof"]
 categories = ["cryptography", "data-structures", "algorithms"]
