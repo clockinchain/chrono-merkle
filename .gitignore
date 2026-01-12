@@ -1,0 +1,47 @@
+# Rust build artifacts
+target/
+Cargo.lock
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+
+# Package files
+*.deb
+*.rpm
+*.tar.gz
+
+# Documentation build
+book/
+
+# Benchmark results
+criterion/
+
+# Backup files
+*.orig
+*.rej
+
+# Local configuration
+.env
+.env.local
+
+# Generated files
+.cargo_vcs_info.json
+
+# Test coverage
+*.profraw
+coverage/
