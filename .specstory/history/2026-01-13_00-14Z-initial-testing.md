@@ -2909,3 +2909,464 @@ The specstory file has been updated with our conversation. This is just tracking
 
 ---
 
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: git add .specstory/history/2026-01-13_00-14Z-initial-testing.md</summary>
+
+```bash
+git add .specstory/history/2026-01-13_00-14Z-initial-testing.md
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Now let me commit this final change.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: git commit -m "docs: Update conversation history"</summary>
+
+```bash
+git commit -m "docs: Update conversation history"
+```
+
+```
+[main 36d7f82] docs: Update conversation history
+ 1 file changed, 832 insertions(+)
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Perfect! Now let me check the final status to make sure everything is clean.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: git status</summary>
+
+```bash
+git status
+```
+
+```
+On branch main
+Your branch is ahead of 'origin/main' by 5 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Excellent! Everything is now committed and clean. Let me show the user what we accomplished.</details></think>
+
+---
+
+## ✅ Version Bumped Successfully!
+
+I've successfully bumped your ChronoMerkle version from **1.1.0** to **1.1.1** (patch release) and committed all changes.
+
+### 📦 **Version 1.1.1 Changes**
+- **Patch Release**: Small version increase for bug fixes and improvements
+- **Bug Fixes**: Cleaned up compiler warnings and unused imports
+- **Enhancements**: Added storage functionality and incremental rebuilds
+- **Documentation**: Updated conversation history tracking
+
+### 📊 **Commit Summary**
+- **Version Bump**: `Cargo.toml` → 1.1.1
+- **Bug Fixes**: Compiler warnings cleanup and unused imports
+- **Storage Features**: MemoryStorage, FileStorage, state serialization
+- **Performance**: Incremental rebuild improvements
+- **Tests**: Fixed integration tests for storage functionality
+
+### 🌟 **Current Status**
+- **Working tree**: Clean ✅
+- **Branch status**: Ahead of origin by 5 commits
+- **Version**: 1.1.1 ready for release
+- **All tests passing**: Verified during testing phase
+
+Your ChronoMerkle library is now at version 1.1.1 with all bug fixes and enhancements properly committed! 🎉
+
+Would you like to push these changes to the remote repository?
+
+---
+
+_**User**_
+
+publish crates
+
+---
+
+_**Agent (model grok-code-fast-1, mode Agent)**_
+
+<think><details><summary>Thought Process</summary>
+The user wants to publish the crate to crates.io. To do this, I need to:
+</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cargo check</summary>
+
+```bash
+cargo check
+```
+
+```
+    Checking chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle)
+    Finished &#96;dev&#96; profile [unoptimized + debuginfo] target(s) in 0.98s
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Good, it compiles. Now let me run the tests to make sure everything passes before publishing.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cargo test</summary>
+
+```bash
+cargo test
+```
+
+```
+
+running 22 tests
+test hash::tests::test_blake3_hasher ... ok
+test security::tests::test_constant_time_eq ... ok
+test security::tests::test_noop_logger ... ok
+test security::tests::test_security_event_creation ... ok
+test security::tests::test_stderr_logger ... ok
+test sparse_index::tests::test_empty_index ... ok
+test sparse_index::tests::test_find_nearest ... ok
+test sparse_index::tests::test_find_range ... ok
+test sparse_index::tests::test_sparse_index_insert ... ok
+test sparse_index::tests::test_sparse_index_sparsity ... ok
+test tests::tree_tests::test_empty_tree ... ok
+test tests::tree_tests::test_find_by_timestamp ... ok
+test tests::tree_tests::test_find_range ... ok
+test tests::tree_tests::test_multiple_inserts ... ok
+test tests::tree_tests::test_single_insert ... ok
+test hash::tests::test_hash_pair ... ok
+test proof::tests::test_proof_creation ... ok
+test proof::tests::test_proof_steps ... ok
+test proof::tests::test_delta_chain ... ok
+test node::tests::test_internal_node ... ok
+test node::tests::test_leaf_node ... ok
+test node::tests::test_delta_node ... ok
+
+test result: ok. 22 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 21 tests
+test test_configuration_validation ... ok
+test test_basic_tree_operations ... ok
+test test_delta_rollback_consistency ... ok
+test test_empty_tree ... ok
+test test_delta_pruning ... ok
+test test_fallback_hasher_security ... ok
+test test_incremental_updates ... ok
+test test_input_validation ... ok
+test test_full_rebuild_fallback ... ok
+test test_rollback_accuracy ... ok
+test test_proof_generation_and_verification ... ok
+test test_proof_security ... ok
+test test_secure_defaults ... ok
+test test_delta_proof_verification ... ok
+test test_single_leaf ... ok
+test test_delta_operations ... ok
+test test_rollback_edge_cases ... ok
+test test_timestamp_validation ... ok
+test test_tree_with_config ... ok
+test test_timestamp_queries ... ok
+test test_large_tree ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+
+running 5 tests
+test test_proof_steps ... ok
+test test_delta_chain ... ok
+test test_proof_structure ... ok
+test test_proof_verification_failure ... ok
+test test_proof_verification_success ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+running 1 test
+test src/lib.rs - (line 16) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+all doctests ran in 0.43s; merged doctests compilation took 0.43s
+   Compiling chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle)
+    Finished &#96;test&#96; profile [unoptimized + debuginfo] target(s) in 2.66s
+     Running unittests src/lib.rs (target/debug/deps/chrono_merkle-70ea6dd5d85f4646)
+     Running tests/integration_tests.rs (target/debug/deps/integration_tests-30eee617f4c95e1c)
+     Running tests/proof_tests.rs (target/debug/deps/proof_tests-c82967b6245db507)
+   Doc-tests chrono_merkle
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Great! All tests pass. Now let me check if we need to set up authentication for crates.io. Usually this requires having a CARGO_REGISTRY_TOKEN environment variable set. Let me check if it's already configured.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: echo $CARGO_REGISTRY_TOKEN</summary>
+
+```bash
+echo $CARGO_REGISTRY_TOKEN
+```
+
+```
+
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+The CARGO_REGISTRY_TOKEN is not set. I need to inform the user that they need to set up authentication for crates.io. They can get a token from https://crates.io/me and then set it as an environment variable or in their ~/.cargo/credentials.toml file.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cargo login</summary>
+
+```bash
+cargo login
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+The cargo login command is waiting for input (likely for the API token). Since this is an interactive command that requires user input, I should cancel it and provide instructions to the user instead. Let me kill this background process and give them clear instructions on how to set up authentication.</details></think>
+
+---
+
+Cancelled
+
+---
+
+_**User**_
+
+@\home\micro\.cursor\projects\home-micro-projects-chrono-merkle\terminals\17.txt:8-12 
+
+---
+
+_**Agent (model grok-code-fast-1, mode Agent)**_
+
+<think><details><summary>Thought Process</summary>
+The user has provided a terminal output showing that they successfully logged in to crates.io with a token. The login was successful. Now I can proceed with publishing the crate.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cargo publish --dry-run</summary>
+
+```bash
+cargo publish --dry-run
+```
+
+```
+    Updating crates.io index
+error: 1 files in the working directory contain changes that were not yet committed into git:
+
+.specstory/history/2026-01-13_00-14Z-initial-testing.md
+
+to proceed despite this and include the uncommitted changes, pass the &#96;--allow-dirty&#96; flag
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+The dry-run shows that there's an uncommitted file (.specstory/history/2026-01-13_00-14Z-initial-testing.md). I need to commit this file first before publishing. Let me add and commit it.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: git add .specstory/history/2026-01-13_00-14Z-initial-testing.md</summary>
+
+```bash
+git add .specstory/history/2026-01-13_00-14Z-initial-testing.md
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Now I need to commit this file. Since it's just conversation history, I'll give it a simple commit message.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: git commit -m "docs: Update session history"</summary>
+
+```bash
+git commit -m "docs: Update session history"
+```
+
+```
+[main b339493] docs: Update session history
+ 1 file changed, 1116 insertions(+)
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Good, now let me run the dry-run publish again to make sure everything is clean.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cargo publish --dry-run</summary>
+
+```bash
+cargo publish --dry-run
+```
+
+```
+    Updating crates.io index
+   Packaging chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle)
+    Updating crates.io index
+    Packaged 47 files, 605.6KiB (117.8KiB compressed)
+   Verifying chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle)
+   Compiling serde_core v1.0.228
+   Compiling thiserror v2.0.17
+   Compiling serde v1.0.228
+   Compiling chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle/target/package/chrono-merkle-1.1.1)
+    Finished &#96;dev&#96; profile [unoptimized + debuginfo] target(s) in 3.12s
+   Uploading chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle)
+warning: aborting upload due to dry run
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Excellent! The dry-run was successful. The package was packaged (47 files, 605.6KiB), compiled successfully, and would have been uploaded. Since the dry-run passed, I can now proceed with the actual publish.</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: cargo publish</summary>
+
+```bash
+cargo publish
+```
+
+```
+    Updating crates.io index
+   Packaging chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle)
+    Updating crates.io index
+    Packaged 47 files, 605.6KiB (117.8KiB compressed)
+   Verifying chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle)
+    Blocking waiting for file lock on package cache
+   Compiling chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle/target/package/chrono-merkle-1.1.1)
+    Finished &#96;dev&#96; profile [unoptimized + debuginfo] target(s) in 0.99s
+   Uploading chrono-merkle v1.1.1 (/home/micro/projects/chrono-merkle)
+    Uploaded chrono-merkle v1.1.1 to registry &#96;crates-io&#96;
+note: waiting for chrono-merkle v1.1.1 to be available at registry &#96;crates-io&#96;
+help: you may press ctrl-c to skip waiting; the crate should be available shortly
+    Blocking waiting for file lock on package cache
+    Blocking waiting for file lock on package cache
+   Published chrono-merkle v1.1.1 at registry &#96;crates-io&#96;
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Perfect! The crate has been successfully published to crates.io. The publish process completed successfully, showing:
+</details></think>
+
+---
+
+## 🎉 Crate Published Successfully!
+
+Your **chrono-merkle v1.1.1** has been successfully published to [crates.io](https://crates.io)!
+
+### 📦 **Publish Summary**
+- **Version**: 1.1.1 (patch release)
+- **Files**: 47 files packaged
+- **Size**: 605.6KiB (117.8KiB compressed)
+- **Status**: ✅ Published and available
+
+### 🚀 **What's New in v1.1.1**
+- **Bug Fixes**: Cleaned up compiler warnings and unused imports
+- **Storage Features**: MemoryStorage backend and FileStorage support
+- **Performance**: Enhanced incremental rebuild functionality
+- **API Improvements**: Better error handling and serialization
+- **Testing**: Fixed integration tests for storage functionality
+
+### 📚 **Installation**
+Users can now install your crate with:
+```bash
+cargo add chrono-merkle
+```
+
+### 🔍 **Crate Details**
+- **Name**: chrono-merkle
+- **Version**: 1.1.1
+- **Description**: Time-aware Merkle tree with delta-based updates and programmable nodes
+- **Repository**: https://github.com/Olyntar-Labs/chrono-merkle
+- **Documentation**: https://docs.rs/chrono-merkle
+
+### 🌟 **Next Steps**
+- The crate should be visible on [crates.io/crates/chrono-merkle](https://crates.io/crates/chrono-merkle) shortly
+- Documentation will be available at [docs.rs/chrono-merkle](https://docs.rs/chrono-merkle)
+- Consider creating a release on GitHub to match the crate version
+
+Your ChronoMerkle library is now publicly available for the Rust community! 🎊
+
+---
+
+_**User**_
+
+Consider creating a release on GitHub to match the crate version
+
+---
+
+_**Agent (model grok-code-fast-1, mode Agent)**_
+
+
+
+---
+
