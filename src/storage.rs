@@ -12,6 +12,11 @@ use std::fs;
 #[cfg(all(feature = "storage", feature = "std", not(feature = "no-std")))]
 use std::path::PathBuf;
 
+use crate::ChronoMerkleError;
+use crate::config::TreeConfig;
+use crate::node::Node;
+use crate::sparse_index::SparseIndex;
+
 /// Trait for persistent storage backends
 #[cfg(feature = "storage")]
 pub trait StorageBackend: Send + Sync {

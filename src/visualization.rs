@@ -1,5 +1,6 @@
 //! Visualization methods for ChronoMerkleTree
 
+use crate::node::{Node, NodeType};
 use crate::tree::ChronoMerkleTree;
 
 #[cfg(feature = "no-std")]
