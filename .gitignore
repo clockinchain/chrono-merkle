@@ -1,5 +1,9 @@
 # Rust build artifacts
 target/
+*.rlib
+
+# Cargo registry cache
+.cargo/registry/
 
 # IDE files
 .vscode/
@@ -45,3 +49,6 @@ criterion/
 # Test coverage
 *.profraw
 coverage/
+
+# Rustfmt
+rustfmt.toml
