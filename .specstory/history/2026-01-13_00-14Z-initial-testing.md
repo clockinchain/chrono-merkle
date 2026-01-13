@@ -3366,7 +3366,101 @@ Consider creating a release on GitHub to match the crate version
 
 _**Agent (model grok-code-fast-1, mode Agent)**_
 
+<think><details><summary>Thought Process</summary>
+The user is asking me to create a GitHub release to match the crate version we just published (v1.1.1). This is a good practice to keep the GitHub repository releases in sync with the published crates.
+</details></think>
 
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: git log --oneline --since="2026-01-10" | head -10</summary>
+
+```bash
+git log --oneline --since="2026-01-10" | head -10
+```
+
+```
+b339493 docs: Update session history
+36d7f82 docs: Update conversation history
+e8b8549 chore: bump version to 1.1.1
+5e3839f fix: Clean up compiler warnings and unused imports
+dcdbde5 chore: bump version to 1.1.0
+f43a814 feat: Complete ChronoMerkle 1.0.0 production readiness
+700072f Update implementation status to reflect CONTRIBUTING.md completion
+b956fe9 Add comprehensive contributing guide
+79b7386 Update Cargo.toml metadata for crates.io publishing
+41e82ee Add .gitignore and update repository metadata
+
+```
+</details>
+</tool-use>
+
+---
+
+<think><details><summary>Thought Process</summary>
+Looking at the recent commits, I can see that v1.1.1 includes:
+</details></think>
+
+---
+
+<tool-use data-tool-type="shell" data-tool-name="run_terminal_command_v2">
+<details><summary>Tool use: **run_terminal_command_v2** • Run command: gh release create v1.1.1 --title "ChronoMerkle v1.1.1 - Bug Fixes and Enhancements" --notes "## What's Changed
+
+### 🐛 Bug Fixes
+- Cleaned up compiler warnings and unused imports
+- Fixed unused assignment warnings in examples
+- Improved code consistency and error handling
+
+### 🚀 Enhancements  
+- **Storage Functionality**: Added MemoryStorage backend for testing and FileStorage support for persistent storage
+- **Performance**: Enhanced incremental tree rebuild functionality for better performance
+- **API Improvements**: Better tree state serialization/deserialization support
+- **Visualization**: Updated imports and references for consistency
+- **Testing**: Fixed integration tests for storage functionality
+
+### 📦 Crate Published
+This version is now available on [crates.io](https://crates.io/crates/chrono-merkle)!
+
+### 📚 Installation
+\`\`\`bash
+cargo add chrono-merkle
+\`\`\`
+
+### 🔗 Links
+- [Documentation](https://docs.rs/chrono-merkle)
+- [Repository](https://github.com/Olyntar-Labs/chrono-merkle)
+- [Crates.io](https://crates.io/crates/chrono-merkle)" --target main</summary>
+
+```bash
+gh release create v1.1.1 --title "ChronoMerkle v1.1.1 - Bug Fixes and Enhancements" --notes "## What's Changed
+
+### 🐛 Bug Fixes
+- Cleaned up compiler warnings and unused imports
+- Fixed unused assignment warnings in examples
+- Improved code consistency and error handling
+
+### 🚀 Enhancements  
+- **Storage Functionality**: Added MemoryStorage backend for testing and FileStorage support for persistent storage
+- **Performance**: Enhanced incremental tree rebuild functionality for better performance
+- **API Improvements**: Better tree state serialization/deserialization support
+- **Visualization**: Updated imports and references for consistency
+- **Testing**: Fixed integration tests for storage functionality
+
+### 📦 Crate Published
+This version is now available on [crates.io](https://crates.io/crates/chrono-merkle)!
+
+### 📚 Installation
+\`\`\`bash
+cargo add chrono-merkle
+\`\`\`
+
+### 🔗 Links
+- [Documentation](https://docs.rs/chrono-merkle)
+- [Repository](https://github.com/Olyntar-Labs/chrono-merkle)
+- [Crates.io](https://crates.io/crates/chrono-merkle)" --target main
+```
+</details>
+</tool-use>
 
 ---
 
