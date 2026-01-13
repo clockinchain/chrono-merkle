@@ -2,7 +2,7 @@
 
 use crate::error::Result;
 use crate::hash::HashFunction;
-use crate::node::Node;
+use crate::node::{Node, NodeType};
 use crate::tree::ChronoMerkleTree;
 
 #[cfg(feature = "no-std")]
@@ -33,7 +33,7 @@ where
 
         // Extract current leaves (all leaf nodes in the tree)
         let current_leaves: Vec<Node<H>> = self.nodes.iter()
-            .filter(|node| matches!(node.node_type, crate::node::NodeType::Leaf { .. }))
+            .filter(|node| matches!(node.node_type, NodeType::Leaf { .. }))
             .cloned()
             .collect();
 
@@ -106,7 +106,7 @@ where
 
         // Extract current leaves (all leaf nodes in the tree)
         let current_leaves: Vec<Node<H>> = self.nodes.iter()
-            .filter(|node| matches!(node.node_type, crate::node::NodeType::Leaf { .. }))
+            .filter(|node| matches!(node.node_type, NodeType::Leaf { .. }))
             .cloned()
             .collect();
 
@@ -165,8 +165,23 @@ where
 
     /// Update the tree incrementally after inserting a new leaf
     pub(crate) fn update_tree_incremental(&mut self) -> Result<()> {
-        // For now, incremental updates fall back to full rebuild
-        // TODO: Implement true incremental updates
+        if self.leaf_count == 0 {
+            return Ok(());
+        }
+
+        if self.leaf_count == 1 {
+            // Single leaf tree - no internal nodes needed
+            // Remove any existing internal nodes
+            self.nodes.truncate(1);
+            return Ok(());
+        }
+
+        // Ensure we have enough capacity for internal nodes
+        self.ensure_tree_capacity()?;
+
+        // Rebuild internal nodes from the bottom up
+        // This is more efficient than full rebuild since leaves stay in place
+        self.rebuild_internal_nodes_incremental()?;
         #[cfg(feature = "parallel")]
         if self.config.parallel_construction {
             self.rebuild_tree_parallel()?;
@@ -241,6 +256,64 @@ where
 
             // Move up to parent
             current_index = parent_index;
+        }
+
+        Ok(())
+    }
+
+    /// Rebuild internal nodes incrementally after a leaf insertion
+    pub(crate) fn rebuild_internal_nodes_incremental(&mut self) -> Result<()> {
+        // Extract current leaves (maintain insertion order for consistency with rebuild_tree)
+        let current_leaves: Vec<Node<H>> = self.nodes.iter()
+            .filter(|node| matches!(node.node_type, NodeType::Leaf { .. }))
+            .cloned()
+            .collect();
+
+        // Clear all nodes and re-insert leaves
+        self.nodes.clear();
+        self.nodes.extend(current_leaves);
+
+        // Build the complete binary tree by iteratively combining nodes
+        let mut current_start = 0;
+        let mut current_count = self.leaf_count;
+
+        while current_count > 1 {
+            let next_count = current_count.div_ceil(2);
+
+            // Prepare the parent nodes for this level
+            let parent_nodes: Vec<Node<H>> = (0..next_count)
+                .map(|i| {
+                    let left_idx = current_start + 2 * i;
+                    let right_idx = current_start + 2 * i + 1;
+
+                    let left_node = &self.nodes[left_idx];
+                    let right_node = if right_idx < current_start + current_count {
+                        &self.nodes[right_idx]
+                    } else {
+                        // Duplicate the last node for odd counts
+                        &self.nodes[current_start + current_count - 1]
+                    };
+
+                    let left_hash = left_node.hash();
+                    let right_hash = right_node.hash();
+
+                    let (left_start, left_end) = left_node.timestamp_info();
+                    let (right_start, right_end) = right_node.timestamp_info();
+
+                    let timestamp_range = (
+                        left_start.min(right_start),
+                        left_end.unwrap_or(left_start).max(right_end.unwrap_or(right_start)),
+                    );
+
+                    let internal_hash = self.hasher.hash_pair(&left_hash, &right_hash);
+                    Node::internal(internal_hash, left_hash, right_hash, timestamp_range)
+                })
+                .collect();
+
+            self.nodes.extend(parent_nodes);
+
+            current_start += current_count;
+            current_count = next_count;
         }
 
         Ok(())

@@ -1,6 +1,6 @@
 //! Node types for ChronoMerkle Tree
 
-use crate::error::Result;
+use crate::error::{ChronoMerkleError, Result};
 #[cfg(feature = "no-std")]
 use alloc::{string::ToString, sync::Arc, vec::Vec};
 
@@ -184,7 +184,7 @@ impl<H: Clone> Node<H> {
     /// Validate data using programmable node validator (if applicable)
     /// Note: Programmable nodes are not currently supported with storage
     pub fn validate(&self, _data: &[u8]) -> Result<bool> {
-        Err(crate::error::ChronoMerkleError::InvalidNodeType {
+        Err(ChronoMerkleError::InvalidNodeType {
             operation: "validate".to_string(),
         })
     }

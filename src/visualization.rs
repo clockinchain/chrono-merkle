@@ -25,7 +25,7 @@ where
 
     /// Helper method to visualize a single node in ASCII format
     #[cfg(all(feature = "visualization", not(feature = "no-std")))]
-    fn visualize_node_ascii(&self, node: &crate::node::Node<H>, prefix: &str, is_last: bool, result: &mut String) {
+    fn visualize_node_ascii(&self, node: &Node<H>, prefix: &str, is_last: bool, result: &mut String) {
         use core::fmt::Write;
 
         // Add the current node
@@ -44,15 +44,15 @@ where
 
     /// Format a node for display
     #[cfg(all(feature = "visualization", not(feature = "no-std")))]
-    fn format_node_label(&self, node: &crate::node::Node<H>) -> String {
+    fn format_node_label(&self, node: &Node<H>) -> String {
         match &node.node_type {
-            crate::node::NodeType::Leaf { timestamp, .. } => {
+            NodeType::Leaf { timestamp, .. } => {
                 format!("Leaf(ts={}, hash={:?})", timestamp, node.hash())
             }
-            crate::node::NodeType::Internal { timestamp_range, .. } => {
+            NodeType::Internal { timestamp_range, .. } => {
                 format!("Internal({}-{}, hash={:?})", timestamp_range.0, timestamp_range.1, node.hash())
             }
-            crate::node::NodeType::Delta { timestamp, .. } => {
+            NodeType::Delta { timestamp, .. } => {
                 format!("Delta(ts={}, hash={:?})", timestamp, node.hash())
             }
         }
@@ -74,7 +74,7 @@ where
 
     /// Helper method to visualize a single node in DOT format
     #[cfg(all(feature = "visualization", not(feature = "no-std")))]
-    fn visualize_node_dot(&self, node: &crate::node::Node<H>, node_id: usize, result: &mut String) {
+    fn visualize_node_dot(&self, node: &Node<H>, node_id: usize, result: &mut String) {
         use core::fmt::Write;
 
         // Add node definition
@@ -93,15 +93,15 @@ where
 
     /// Format a node label for DOT
     #[cfg(all(feature = "visualization", not(feature = "no-std")))]
-    fn format_node_dot_label(&self, node: &crate::node::Node<H>) -> String {
+    fn format_node_dot_label(&self, node: &Node<H>) -> String {
         match &node.node_type {
-            crate::node::NodeType::Leaf { timestamp, .. } => {
+            NodeType::Leaf { timestamp, .. } => {
                 format!("Leaf\\nts={}\\nhash={:?}", timestamp, node.hash())
             }
-            crate::node::NodeType::Internal { timestamp_range, .. } => {
+            NodeType::Internal { timestamp_range, .. } => {
                 format!("Internal\\n{}-{}\\nhash={:?}", timestamp_range.0, timestamp_range.1, node.hash())
             }
-            crate::node::NodeType::Delta { timestamp, .. } => {
+            NodeType::Delta { timestamp, .. } => {
                 format!("Delta\\nts={}\\nhash={:?}", timestamp, node.hash())
             }
         }
@@ -109,11 +109,11 @@ where
 
     /// Get color for node type
     #[cfg(all(feature = "visualization", not(feature = "no-std")))]
-    fn get_node_color(&self, node: &crate::node::Node<H>) -> &'static str {
+    fn get_node_color(&self, node: &Node<H>) -> &'static str {
         match &node.node_type {
-            crate::node::NodeType::Leaf { .. } => "lightgreen",
-            crate::node::NodeType::Internal { .. } => "lightblue",
-            crate::node::NodeType::Delta { .. } => "lightyellow",
+            NodeType::Leaf { .. } => "lightgreen",
+            NodeType::Internal { .. } => "lightblue",
+            NodeType::Delta { .. } => "lightyellow",
         }
     }
 
@@ -143,18 +143,18 @@ where
         };
 
         serde_json::to_string_pretty(&tree_data)
-            .map_err(|e| crate::error::ChronoMerkleError::SerializationError(
+            .map_err(|e| ChronoMerkleError::SerializationError(
                 format!("Failed to serialize tree to JSON: {}", e),
             ))
     }
 
     /// Helper method to create JSON representation of a node
     #[cfg(all(feature = "visualization", not(feature = "no-std")))]
-    fn visualize_node_json(&self, node: &crate::node::Node<H>) -> serde_json::Value {
+    fn visualize_node_json(&self, node: &Node<H>) -> serde_json::Value {
         use serde_json::json;
 
         let node_info = match &node.node_type {
-            crate::node::NodeType::Leaf { timestamp, hash, data } => {
+            NodeType::Leaf { timestamp, hash, data } => {
                 json!({
                     "type": "leaf",
                     "timestamp": timestamp,
@@ -162,7 +162,7 @@ where
                     "has_data": data.is_some()
                 })
             }
-            crate::node::NodeType::Internal { timestamp_range, hash, left_hash, right_hash } => {
+            NodeType::Internal { timestamp_range, hash, left_hash, right_hash } => {
                 json!({
                     "type": "internal",
                     "timestamp_range": [timestamp_range.0, timestamp_range.1],
@@ -171,7 +171,7 @@ where
                     "right_hash": format!("{:?}", right_hash)
                 })
             }
-            crate::node::NodeType::Delta { timestamp, delta_hash, base_hash } => {
+            NodeType::Delta { timestamp, delta_hash, base_hash } => {
                 json!({
                     "type": "delta",
                     "timestamp": timestamp,

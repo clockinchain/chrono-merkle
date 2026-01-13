@@ -568,7 +568,6 @@ fn test_parallel_vs_sequential_consistency() {
 #[test]
 fn test_tree_persistence() {
     use chrono_merkle::{MemoryStorage, FileStorage};
-    use std::fs;
     use tempfile::TempDir;
 
     // Create a tree with some data
@@ -578,7 +577,7 @@ fn test_tree_persistence() {
             parallel_construction: false,
             ..Default::default()
         }
-    );
+    ).unwrap();
 
     // Add some test data
     let test_data = vec![
@@ -603,7 +602,7 @@ fn test_tree_persistence() {
         tree.save_state(&mut memory_storage, "test_tree").unwrap();
 
         // Load tree state into a new tree
-        let loaded_tree = ChronoMerkleTree::load_state(&memory_storage, "test_tree", Blake3Hasher::default()).unwrap();
+        let loaded_tree = ChronoMerkleTree::load_state(&memory_storage, "test_tree", Blake3Hasher::default(), chrono_merkle::NoOpLogger).unwrap();
 
         // Verify the loaded tree matches the original
         assert_eq!(loaded_tree.leaf_count(), original_leaf_count);
@@ -625,7 +624,7 @@ fn test_tree_persistence() {
         tree.save_state(&mut file_storage, "state").unwrap();
 
         // Load tree state into a new tree
-        let loaded_tree = ChronoMerkleTree::load_state(&file_storage, "state", Blake3Hasher::default()).unwrap();
+        let loaded_tree = ChronoMerkleTree::load_state(&file_storage, "state", Blake3Hasher::default(), chrono_merkle::NoOpLogger).unwrap();
 
         // Verify the loaded tree matches the original
         assert_eq!(loaded_tree.leaf_count(), original_leaf_count);
@@ -653,7 +652,7 @@ fn test_tree_state_extraction() {
     let state = tree.extract_state();
 
     // Create new tree from state
-    let reconstructed_tree = ChronoMerkleTree::from_state(state, Blake3Hasher::default());
+    let reconstructed_tree = ChronoMerkleTree::from_state(state, Blake3Hasher::default(), chrono_merkle::NoOpLogger);
 
     // Verify they match
     assert_eq!(tree.leaf_count(), reconstructed_tree.leaf_count());

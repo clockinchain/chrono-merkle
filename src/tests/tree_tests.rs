@@ -1,5 +1,6 @@
 //! Tests for ChronoMerkleTree
 
+use crate::node::NodeType;
 use crate::tree::ChronoMerkleTree;
 use crate::hash::Blake3Hasher;
 
@@ -46,8 +47,8 @@ fn test_find_by_timestamp() {
     let _indices = tree.find_by_timestamp(1000);
     for i in 0..tree.nodes.len() {
         match &tree.nodes[i].node_type {
-            crate::node::NodeType::Leaf { timestamp, .. } => println!("Node {}: LEAF with timestamp {}", i, timestamp),
-            crate::node::NodeType::Internal { .. } => println!("Node {}: INTERNAL", i),
+            NodeType::Leaf { timestamp, .. } => println!("Node {}: LEAF with timestamp {}", i, timestamp),
+            NodeType::Internal { .. } => println!("Node {}: INTERNAL", i),
             _ => println!("Node {}: OTHER", i),
         }
     }

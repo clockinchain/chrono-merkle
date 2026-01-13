@@ -69,6 +69,8 @@ pub use security::{SecurityEvent, SecurityEventType, SecurityLevel, SecurityLogg
 #[cfg(feature = "std")]
 pub use security::StdErrLogger;
 pub use sparse_index::SparseIndex;
+#[cfg(feature = "storage")]
+pub use storage::MemoryStorage;
 #[cfg(all(feature = "storage", feature = "std", not(feature = "no-std")))]
 pub use storage::FileStorage;
 pub use tree::{ChronoMerkleTree, TreeConfig};

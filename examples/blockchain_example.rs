@@ -90,7 +90,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Create a simple blockchain
     let mut blockchain: Vec<Block> = Vec::new();
-    let mut previous_hash: Option<[u8; 32]> = None;
 
     // Create genesis block
     println!("🏆 Creating Genesis Block:");
@@ -108,7 +107,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("  Merkle Root: {:x}", genesis_block.merkle_root.iter().fold(0u64, |acc, &b| acc.wrapping_mul(256).wrapping_add(b as u64)));
     println!("  Block Hash: {:x}", genesis_hash.iter().fold(0u64, |acc, &b| acc.wrapping_mul(256).wrapping_add(b as u64)));
 
-    previous_hash = Some(genesis_hash);
+    let mut previous_hash = Some(genesis_hash);
 
     // Create additional blocks
     let mut current_timestamp = 1000000;
