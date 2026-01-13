@@ -49,7 +49,7 @@ This project follows a code of conduct to ensure a welcoming environment for all
 
 ### Prerequisites
 
-- **Rust:** Version 1.70 or later
+- **Rust:** Version 1.85 or later
 - **Cargo:** Latest stable version
 - **Git:** Version 2.0 or later
 
@@ -357,7 +357,7 @@ A clear description of what you expected to happen.
 
 **Environment**
 - OS: [e.g., Ubuntu 20.04]
-- Rust version: [e.g., 1.70.0]
+- Rust version: [e.g., 1.85.0]
 - ChronoMerkle version: [e.g., 0.1.0]
 
 **Additional context**

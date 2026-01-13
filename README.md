@@ -2,9 +2,9 @@
 
 [![Crates.io](https://img.shields.io/crates/v/chrono-merkle.svg)](https://crates.io/crates/chrono-merkle)
 [![Documentation](https://docs.rs/chrono-merkle/badge.svg)](https://docs.rs/chrono-merkle)
-[![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](https://github.com/clockinchain/chrono-merkle)
+[![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](https://github.com/Olyntar-Labs/chrono-merkle)
 [![Rust](https://img.shields.io/badge/rust-1.85%2B-orange.svg)](https://www.rust-lang.org/)
-[![Tests](https://img.shields.io/badge/tests-48%20passing-brightgreen.svg)](https://github.com/clockinchain/chrono-merkle)
+[![Tests](https://img.shields.io/badge/tests-48%20passing-brightgreen.svg)](https://github.com/Olyntar-Labs/chrono-merkle)
 
 **Time-aware Merkle trees for blockchain, audit trails, and secure data verification**
 
@@ -42,7 +42,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-chrono-merkle = "1.0"
+chrono-merkle = "1.1"
 ```
 
 ### Feature Flags
@@ -379,7 +379,7 @@ We welcome contributions from developers, security researchers, and the broader 
 | Type | Impact | Getting Started |
 |------|--------|----------------|
 | 🐛 **Bug Reports** | High | Check existing issues, provide reproduction steps |
-| 🔒 **Security Issues** | Critical | Email security@clockinchain.com privately |
+| 🔒 **Security Issues** | Critical | Email security@olyntar.com privately |
 | ✨ **Features** | High | Open RFC in Discussions, implement if approved |
 | 📖 **Documentation** | Medium | Improve README, add examples, fix typos |
 | 🧪 **Testing** | Medium | Add property-based tests, improve coverage |
@@ -473,17 +473,17 @@ at your option.
 
 ### Documentation & Help
 - 📖 **[API Documentation](https://docs.rs/chrono-merkle)** - Comprehensive Rust docs
-- 🐛 **[Issue Tracker](https://github.com/clockinchain/chrono-merkle/issues)** - Bug reports and feature requests
-- 💬 **[Discussions](https://github.com/clockinchain/chrono-merkle/discussions)** - Community questions and ideas
+- 🐛 **[Issue Tracker](https://github.com/Olyntar-Labs/chrono-merkle/issues)** - Bug reports and feature requests
+- 💬 **[Discussions](https://github.com/Olyntar-Labs/chrono-merkle/discussions)** - Community questions and ideas
 
 ### Security
-- 🔒 **Security Issues**: Email `security@clockinchain.com` for private disclosure
+- 🔒 **Security Issues**: Email `security@olyntar.com` for private disclosure
 - 📋 **Security Audit**: Independent third-party security review completed
 - 🛡️ **Responsible Disclosure**: 90-day disclosure policy for vulnerabilities
 
 ### Commercial Support
 - 🏢 **Enterprise Support**: Commercial licensing and support available
-- 📧 **Contact**: `contact@clockinchain.com` for business inquiries
+- 📧 **Contact**: `contact@olyntar.com` for business inquiries
 
 ---
 
