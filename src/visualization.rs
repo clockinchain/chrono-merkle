@@ -1,5 +1,6 @@
 //! Visualization methods for ChronoMerkleTree
 
+use crate::error::ChronoMerkleError;
 use crate::node::{Node, NodeType};
 use crate::tree::ChronoMerkleTree;
 
@@ -120,7 +121,7 @@ where
 
     /// Generate a JSON representation of the tree structure
     #[cfg(all(feature = "visualization", not(feature = "no-std")))]
-    pub fn visualize_json(&self) -> Result<String> {
+    pub fn visualize_json(&self) -> crate::error::Result<String> {
         use serde_json::json;
 
         let tree_data = if self.nodes.is_empty() {
