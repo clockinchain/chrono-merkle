@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.2] - 2026-01-13
+
 ### Added
 - Initial public release preparation
 - Comprehensive documentation and examples
@@ -17,10 +19,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Compiler warnings and dead code cleanup
 - Example compilation issues
 - Type annotation issues in examples
-
-## [1.1.2] - 2026-01-13
-
-### Fixed
 - Missing imports for `ChronoMerkleError` in storage.rs
 - Missing imports for `Node` and `NodeType` in visualization.rs
 - Compilation errors preventing build
@@ -84,7 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Memory-efficient storage with configurable sparsity
 
 ### Testing
-- Comprehensive unit test suite (36 tests)
+- Comprehensive unit test suite (48 tests)
 - Integration tests for end-to-end workflows
 - Property-based testing with proptest
 - Example validation
@@ -96,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Performance characteristics
 
 ### Compatibility
-- Rust 1.70+ support
+- Rust 1.85+ support
 - `no-std` compatibility
 - WebAssembly support
 - Cross-platform compatibility
