@@ -454,10 +454,8 @@ at your option.
 
 ## 🔗 Ecosystem & Related Projects
 
-### ClockInChain Ecosystem
-- [**ClockInChain**](https://github.com/clockinchain) - Main blockchain platform using ChronoMerkle for temporal integrity
-- [**ClockHash**](https://github.com/clockinchain/clockhash) - Advanced trace compression for execution traces
-- [**ClockVM**](https://github.com/clockinchain/clockvm) - Virtual machine with temporal execution guarantees
+### Olyntar Labs Ecosystem
+- [**clock-rand**](https://github.com/Olyntar-Labs/clock-rand) - High-performance random number generation for Rust with blockchain-aware RNGs
 
 ### Cryptographic Foundations
 - [**Blake3**](https://github.com/BLAKE3-team/BLAKE3) - Fast, secure cryptographic hash function
