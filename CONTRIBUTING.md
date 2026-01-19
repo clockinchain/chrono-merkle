@@ -57,7 +57,7 @@ This project follows a code of conduct to ensure a welcoming environment for all
 
 ```bash
 # Clone the repository
-git clone https://github.com/Olyntar-Labs/chrono-merkle.git
+git clone https://github.com/clockinchain/chrono-merkle.git
 cd chrono-merkle
 
 # Run tests to ensure everything works
@@ -437,8 +437,8 @@ cargo doc --document-private-items
 
 ## 📞 Getting Help
 
-- **Issues:** https://github.com/Olyntar-Labs/chrono-merkle/issues
-- **Discussions:** https://github.com/Olyntar-Labs/chrono-merkle/discussions
+- **Issues:** https://github.com/clockinchain/chrono-merkle/issues
+- **Discussions:** https://github.com/clockinchain/chrono-merkle/discussions
 - **Documentation:** https://docs.rs/chrono-merkle
 
 ## 🙏 Recognition
